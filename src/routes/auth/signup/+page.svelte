@@ -1,6 +1,8 @@
 <script>
   import Errors from "../../../Component/Errors.svelte";
+  import {doc, setDoc} from "firebase/firestore"
   import {auth} from "../../../config.js";
+  import {db} from "../../../config.js";
   import {createUserWithEmailAndPassword} from "firebase/auth";
 
   let email;
@@ -11,7 +13,7 @@
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         const user = userCredential.user;
-        console.log(user)
+        localStorage.setItem('user', JSON.stringify(user))
       })
       .catch((error) => {
         errors = [error]

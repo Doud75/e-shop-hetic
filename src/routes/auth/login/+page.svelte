@@ -2,7 +2,6 @@
   import Errors from "../../../Component/Errors.svelte";
   import {auth} from "../../../config.js";
   import {signInWithEmailAndPassword} from "firebase/auth";
-  import {json} from "@sveltejs/kit";
 
   let email;
   let password;
