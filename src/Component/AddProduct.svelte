@@ -1,5 +1,5 @@
 <script>
-  import {collection, addDoc, getDocs} from "firebase/firestore";
+  import {collection, addDoc, getDoc, doc} from "firebase/firestore";
   import {db} from "/src/config.js";
 
   export let popup
@@ -14,12 +14,10 @@
       description,
       price
     })
-      .then(async () => {
-        products = [];
-        const querySnapshot = await getDocs(collection(db, 'product'))
-        querySnapshot.forEach(doc => {
-            products.push(doc.data())
-        })
+      .then(async (product) => {
+        /*products = [];*/
+        const response = await getDoc(doc(db, 'product', product.id))
+        products.push(response.data())
         displayPopup()
       })
   }

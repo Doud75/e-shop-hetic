@@ -3,13 +3,13 @@
   import {onAuthStateChanged} from "firebase/auth";
   import {goto} from "$app/navigation";
   import AddProduct from "/src/Component/AddProduct.svelte";
-  import {collection, getDocs} from "firebase/firestore";
+  /*import {collection, getDocs} from "firebase/firestore";*/
+  import {page} from "$app/stores";
   /*import {doc, setDoc} from "firebase/firestore";*/
 
   let userLog
   let popup = false
-  let products = []
-
+  let products = $page.data.products
 
   function displayPopup() {
     popup = !popup
@@ -23,16 +23,16 @@
         goto('/auth/login')
       }
     });
-    fetchData()
+    /*fetchData()*/
   }
 
-  async function fetchData() {
+ /* async function fetchData() {
     const querySnapshot = await getDocs(collection(db, 'product'))
     querySnapshot.forEach(doc => {
       products.push(doc.data())
     })
     console.log(products)
-  }
+  }*/
 
   $: products
   $: userLog
