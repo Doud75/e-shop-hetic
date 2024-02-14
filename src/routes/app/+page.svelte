@@ -1,42 +1,35 @@
 <script>
-  import {auth, db} from "/src/config.js";
-  import {onAuthStateChanged} from "firebase/auth";
-  import {goto} from "$app/navigation";
+  import { auth } from "/src/config.js";
+  import { onAuthStateChanged } from "firebase/auth";
+  import { goto } from "$app/navigation";
   import AddProduct from "/src/Component/AddProduct.svelte";
-  /*import {collection, getDocs} from "firebase/firestore";*/
-  import {page} from "$app/stores";
-  /*import {doc, setDoc} from "firebase/firestore";*/
+  import { page } from "$app/stores";
 
-  let userLog
-  let popup = false
-  let products = $page.data.products
+  let userLog;
+  let popup = false;
+  let products = $page.data.products;
 
   function displayPopup() {
-    popup = !popup
+    popup = !popup;
   }
 
-  if(typeof window !== 'undefined') {
+  function updateProducts(newProduct) {
+    products = [...products, newProduct];
+  }
+
+  if (typeof window !== 'undefined') {
     onAuthStateChanged(auth, (user) => {
       if (user?.uid) {
-        userLog = user
+        userLog = user;
       } else {
-        goto('/auth/login')
+        goto('/auth/login');
       }
     });
-    /*fetchData()*/
   }
 
- /* async function fetchData() {
-    const querySnapshot = await getDocs(collection(db, 'product'))
-    querySnapshot.forEach(doc => {
-      products.push(doc.data())
-    })
-    console.log(products)
-  }*/
-
   $: products
+  $: console.log(products)
   $: userLog
-
 </script>
 
 <button on:click={displayPopup} class="mb-6 rounded-lg w-full bg-[#319795] text-white py-2">Ajouter un produit</button>
@@ -49,5 +42,5 @@
     {/each}
 </div>
 {#if popup}
-    <AddProduct bind:popup bind:products/>
+    <AddProduct bind:popup updateProducts={updateProducts}/>
 {/if}

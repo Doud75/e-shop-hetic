@@ -6,7 +6,7 @@ export async function load() {
   let products = []
   const querySnapshot = await getDocs(collection(db, 'product'))
   querySnapshot.forEach(doc => {
-    products.push(doc.data())
+    products.push({...doc.data(), id: doc.id})
   })
   return {
     products

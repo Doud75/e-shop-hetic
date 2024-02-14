@@ -4,6 +4,7 @@
   import {auth} from "../../../config.js";
   import {db} from "../../../config.js";
   import {createUserWithEmailAndPassword} from "firebase/auth";
+  import {goto} from "$app/navigation";
 
   let email;
   let password;
@@ -14,6 +15,7 @@
       .then((userCredential) => {
         const user = userCredential.user;
         localStorage.setItem('user', JSON.stringify(user))
+        goto('/app')
       })
       .catch((error) => {
         errors = [error]

@@ -1,29 +1,33 @@
 <script>
-  import {collection, addDoc, getDoc, doc} from "firebase/firestore";
-  import {db} from "/src/config.js";
+  import { collection, addDoc, getDoc, doc } from "firebase/firestore";
+  import { db } from "/src/config.js";
 
-  export let popup
-  export let products
-  let name
-  let description
-  let price
+  export let popup;
+  export let updateProducts;
 
-  function handleSubmit() {
-    addDoc(collection(db, 'product'), {
+  let name;
+  let description;
+  let price;
+
+  async function handleSubmit() {
+    const newProduct = {
       name,
       description,
       price
-    })
-      .then(async (product) => {
-        /*products = [];*/
-        const response = await getDoc(doc(db, 'product', product.id))
-        products.push(response.data())
-        displayPopup()
-      })
+    };
+
+    try {
+      const docRef = await addDoc(collection(db, 'product'), newProduct);
+      const productDoc = await getDoc(doc(db, 'product', docRef.id));
+      updateProducts({...productDoc.data(), id: productDoc.id});
+      displayPopup();
+    } catch (error) {
+      console.error('Error adding product: ', error);
+    }
   }
 
   function displayPopup() {
-    popup = !popup
+    popup = !popup;
   }
 </script>
 
