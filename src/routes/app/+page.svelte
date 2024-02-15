@@ -6,19 +6,19 @@
   import Product from "/src/Component/_Product.svelte";
   import { page } from "$app/stores";
   import { getUsers } from "/src/helpers/helperUsers.js" 
+  import { getProducts } from "/src/helpers/helperProducts.js" 
   import { onMount } from 'svelte';
 
 
   let userLog;
   let popup = false;
-  let products = $page.data.products;
 
+  let products = []
   let users = [];
 
   onMount(async () => {
-    console.log('test');
+    products = await getProducts();
     users = await getUsers();
-    console.log(users);
   });
 
 
@@ -42,8 +42,6 @@
 
   $: products
   $: userLog
-  console.log(products);
-  console.log(userLog);
 </script>
 
 <h1>Bonjour</h1>

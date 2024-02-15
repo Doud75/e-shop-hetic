@@ -1,6 +1,11 @@
 <script>
   import {doc, deleteDoc, updateDoc} from "firebase/firestore";
   import { db } from "/src/config.js";
+  import { onMount } from 'svelte';
+  import { getImageProductUrl } from "/src/helpers/helperProducts.js" 
+
+
+ 
 
   export let product
   export let products
@@ -11,6 +16,7 @@
   let newPrice = product.price
   let newDescription = product.description
   let newKey = key
+
 
   function displayPopup() {
     showPopup = !showPopup
@@ -45,6 +51,24 @@
   $:newPrice
   $:newDescription
   $:newKey
+
+
+  
+
+    let imageUrlT
+
+    if (typeof window !== 'undefined') {
+        getImageProductUrl(product)
+        .then(imageUrl => {
+         imageUrlT = imageUrl
+        console.log(imageUrl);
+        })
+        .catch(error => {
+        console.error(error);
+        });
+    }
+  
+
 </script>
 
 {#if showPopup}
@@ -92,13 +116,16 @@
         </div>
     </div>
 {/if}
-<div>
-    <h2 class="text-lg font-semibold">
-        {product.name}
-    </h2>
-    <p>
-        {product.description}
-    </p>
+<div class="flex gap-10 p-4 border-solid border-2">
+    <img src={imageUrlT} alt="image produit" class="w-[100px] h-[100px] object-cover">
+    <div class="flex flex-col gap-1">
+        <h2 class="text-lg font-semibold">
+            {product.name}
+        </h2>
+        <p>
+            {product.description}
+        </p>
+    </div>
     <p class="text-slate-400">
         {product.price}€
     </p>

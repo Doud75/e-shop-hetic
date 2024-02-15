@@ -1,14 +1,20 @@
 
 import {collection, getDocs} from "firebase/firestore";
-import {db} from "../config.js";
+import {db, storage} from "../config.js";
+import { getDownloadURL, ref } from "firebase/storage";
 
 export async function getProducts() {
-  const products = []
+  let products = []
   const querySnapshot = await getDocs(collection(db, 'product'))
   querySnapshot.forEach(doc => {
     products.push({...doc.data(), id: doc.id})
   })
-  return {
-    products
-  }
+  return products
 }
+
+
+export async function getImageProductUrl(product) {
+    let imageProductUrl = await getDownloadURL(ref(storage, 'images/' + product.fileName))
+    console.log('imageProductUrl', imageProductUrl);
+    return imageProductUrl
+  }
