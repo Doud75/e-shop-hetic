@@ -116,31 +116,34 @@
         </div>
     </div>
 {/if}
-<div class="flex gap-10 p-4 border-solid border-2">
-    <img src={imageUrlT} alt="image produit" class="w-[100px] h-[100px] object-cover">
-    <div class="flex flex-col gap-1">
-        <h2 class="text-lg font-semibold">
-            {product.name}
-        </h2>
-        <p>
-            {product.description}
+<!-- <div class="flex gap-10 p-4 border-solid border-2"> -->
+<div class="border border-[#DAE7E3] flex gap-10 px-4 py-3 rounded relative justify-between" >
+    <div class="flex gap-4">
+        <img src={imageUrlT} alt="image produit" class="w-[70px] h-[70px] object-cover">
+        <div class="flex flex-col gap-1">
+            <h2 class="text-lg font-semibold">
+                {product.name}
+            </h2>
+            <p>
+                {product.description}
+            </p>
+        </div>
+    </div>
+    <div class="flex gap-8 items-center">
+        <p class="font-bold">
+            {product.price}€
         </p>
-    </div>
-    <p class="text-slate-400">
-        {product.price}€
-    </p>
-    <div>
-        <button
-                class="text-[#319795] underline"
-                on:click={displayPopup}>
-            Modifier
-        </button>
-    </div>
-    <div>
-        <button
-                class="text-red-500 underline"
-                on:click={displayAlert}>
-            Supprimer
-        </button>
+        <div class="flex flex-col gap-4">
+            <button
+                    class="text-[#319795] underline"
+                    on:click={displayPopup}>
+                Modifier
+            </button>
+            <button
+                    class="text-red-500 underline"
+                    on:click={displayAlert}>
+                Supprimer
+            </button>
+        </div>
     </div>
 </div>
