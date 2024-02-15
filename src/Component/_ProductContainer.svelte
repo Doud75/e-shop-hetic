@@ -40,7 +40,7 @@
 </script>
 
 <div class="border border-[#DAE7E3] px-4 py-3 rounded relative w-fit flex flex-col gap-2">
-	<img class="w-[400px] h-[300px] object-cover rounded" src={product?.url} alt={`${product?.name} image`} />
+	<img class="w-[400px] h-[300px] object-cover rounded" src={product?.imageProductUrl} alt={`${product?.name} image`} />
 	<div class="flex justify-between gap-2">
 		<p>{product?.name}</p>
 		<p class="font-medium">{product?.price}</p>

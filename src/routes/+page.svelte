@@ -7,8 +7,7 @@
 
 	products = products?.map(product => ({
 		...product,
-    quantity: 0,
-    url: product?.imageProductUrl
+    quantity: 0	
 	}));
 
 	
