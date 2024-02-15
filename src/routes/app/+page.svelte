@@ -4,20 +4,18 @@
   import { goto } from "$app/navigation";
   import AddProduct from "/src/Component/_AddProduct.svelte";
   import Product from "/src/Component/_Product.svelte";
-  import { page } from "$app/stores";
-  import { getUsers } from "/src/helpers/helperUsers.js" 
-  import { getProducts } from "/src/helpers/helperProducts.js" 
+  import { getUsers } from "/src/helpers/helperUsers.js"
   import { onMount } from 'svelte';
+  import {page} from "$app/stores";
 
 
   let userLog;
   let popup = false;
-
-  let products = []
+  let products = $page.data.products;
   let users = [];
 
   onMount(async () => {
-    products = await getProducts();
+    /*products = await getProducts();*/
     users = await getUsers();
   });
 

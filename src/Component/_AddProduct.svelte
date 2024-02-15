@@ -4,6 +4,7 @@
   import Errors from "/src/Component/_Errors.svelte";
   import { ref, uploadBytes } from 'firebase/storage';
   import {generateUUID} from "../helpers/uuid.js";
+  import {getImageProductUrl} from "../helpers/helperProducts.js";
 
   export let popup;
   export let updateProducts;
@@ -16,6 +17,10 @@
   let errors = [];
 
   async function handleSubmit() {
+    if (!selectedFile || !name || !description || !price) {
+      errors = ['Remplissez tous les inputs'];
+      return;
+    }
     const fileExtension = selectedFile.name.split('.').pop();
     const fileName = uuid + '.' + fileExtension
     const newProduct = {
@@ -26,10 +31,6 @@
     };
 
 
-    if (!selectedFile || !name || !description || !price) {
-      errors = ['Remplissez tous les inputs'];
-      return;
-    }
 
     const storageRef = ref(storage, 'images/' + fileName);
     try {
@@ -42,7 +43,8 @@
     try {
       const docRef = await addDoc(collection(db, 'product'), newProduct);
       const productDoc = await getDoc(doc(db, 'product', docRef.id));
-      updateProducts({...productDoc.data(), id: productDoc.id});
+      const imageProductUrl = await getImageProductUrl(productDoc.data())
+      updateProducts({...productDoc.data(), id: productDoc.id, imageProductUrl: imageProductUrl});
       displayPopup();
     } catch (error) {
       errors = [error]
