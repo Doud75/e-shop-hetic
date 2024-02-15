@@ -1,5 +1,5 @@
 <script>
-  import {doc, deleteDoc} from "firebase/firestore";
+  import {doc, deleteDoc, updateDoc} from "firebase/firestore";
   import { db } from "/src/config.js";
 
   export let product
@@ -20,11 +20,15 @@
   }
 
   async function modifyProduct() {
+    await updateDoc(doc(db, "product", product.id), {
+      "price": newPrice,
+      "name": newName,
+      "description": newDescription,
+    });
     products[key] = {
       price: newPrice,
       name: newName,
       description: newDescription,
-      id: product.id
     };
     displayPopup()
   }
@@ -38,23 +42,24 @@
 
 {#if showPopup}
     <div class="fixed top-0 left-0 z-50 flex items-center justify-center w-full h-full bg-black bg-opacity-50">
-        <form on:submit={modifyProduct()} class="flex flex-col w-3/4 p-8 bg-white rounded">
+        <form on:submit={modifyProduct} class="flex flex-col w-3/4 p-8 bg-white rounded">
             <h2 class="mb-4">Modifier le produit</h2>
             <div class="mb-4">
                 <label for="name">Nom</label>
-                <input id="name" placeholder="{product.name}" type="text" class="form-control" bind:value={newName}>
+                <input id="name" placeholder="{product.name}" type="text" class="rounded-lg border-2 w-full mx-auto py-1 px-2 mt-2 mb-6" bind:value={newName}>
             </div>
             <div class="mb-4">
                 <label for="description">Description</label>
-                <input id="description" placeholder="{product.description}" type="text" class="form-control" bind:value={newDescription}>
+                <input id="description" placeholder="{product.description}" type="text" class="rounded-lg border-2 w-full mx-auto py-1 px-2 mt-2 mb-6" bind:value={newDescription}>
             </div>
             <div class="mb-4">
                 <label for="price">Prix</label>
-                <input id="price" placeholder="{product.price}" type="text" class="form-control" bind:value={newPrice}>
+                <input id="price" placeholder="{product.price}" type="number" class="rounded-lg border-2 w-full mx-auto py-1 px-2 mt-2 mb-6" bind:value={newPrice}>
             </div>
-            <div class="d-flex justify-content-end">
-                <button type="submit" class="btn btn-primary mx-2">Valider</button>
-                <button type="button" class="btn btn-danger" on:click={displayPopup}>Annuler</button>
+            <div class="flex justify-end mx-auto mt-4 ">
+                <button type="button" class="bg-red-500 text-white px-4 py-2 rounded" on:click={displayPopup}>Annuler
+                </button>
+                <button type="submit" class="bg-[#319795] text-white px-4 py-2 rounded mx-2">Valider</button>
             </div>
         </form>
     </div>
@@ -67,11 +72,11 @@
                 <strong class="font-bold">{product.name}</strong> ?
             </p>
             <div class="flex justify-end mx-auto mt-4 ">
-                <button type="submit" class="bg-[#319795] text-white px-4 py-2 rounded mx-2" on:click={deleteProduct}>
-                    Valider
-                </button>
                 <button type="button" class="bg-red-500 text-white px-4 py-2 rounded" on:click={displayAlert}>
                     Annuler
+                </button>
+                <button type="submit" class="bg-[#319795] text-white px-4 py-2 rounded mx-2" on:click={deleteProduct}>
+                    Valider
                 </button>
             </div>
         </div>
