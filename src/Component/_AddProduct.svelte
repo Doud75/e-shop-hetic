@@ -1,6 +1,9 @@
 <script>
   import { collection, addDoc, getDoc, doc } from "firebase/firestore";
-  import { db } from "/src/config.js";
+  import { db, storage } from "/src/config.js";
+  import Errors from "/src/Component/_Errors.svelte";
+  import { ref, uploadBytes } from 'firebase/storage';
+  import {generateUUID} from "../helpers/uuid.js";
 
   export let popup;
   export let updateProducts;
@@ -8,13 +11,33 @@
   let name;
   let description;
   let price;
+  let uuid = generateUUID()
+  let selectedFile;
+  let errors = [];
 
   async function handleSubmit() {
+    const fileExtension = selectedFile.name.split('.').pop();
+    const fileName = uuid + '.' + fileExtension
     const newProduct = {
       name,
       description,
-      price
+      price,
+      fileName
     };
+
+
+    if (!selectedFile || !name || !description || !price) {
+      errors = ['Remplissez tous les inputs'];
+      return;
+    }
+
+    const storageRef = ref(storage, 'images/' + fileName);
+    try {
+      await uploadBytes(storageRef, selectedFile);
+    } catch (error) {
+      errors = [error]
+      console.error('Error uploading file:', error);
+    }
 
     try {
       const docRef = await addDoc(collection(db, 'product'), newProduct);
@@ -22,6 +45,7 @@
       updateProducts({...productDoc.data(), id: productDoc.id});
       displayPopup();
     } catch (error) {
+      errors = [error]
       console.error('Error adding product: ', error);
     }
   }
@@ -29,12 +53,20 @@
   function displayPopup() {
     popup = !popup;
   }
+
+
+  function handleFileInput(event) {
+    selectedFile = event.target.files[0];
+  }
 </script>
 
+<Errors {errors} />
 <div class="fixed top-0 left-0 flex items-center justify-center h-screen bg-black bg-opacity-50">
     <form on:submit={handleSubmit}
           class="fixed top-0 left-0 z-50 flex items-center justify-center w-full h-full bg-black bg-opacity-50">
         <div class="flex flex-col w-3/4 p-8 bg-white rounded">
+            <label for="file" class="text-[#646D74]">File</label>
+            <input id="file" type="file" accept="image/*" on:change={handleFileInput} />
             <label for="name" class="text-[#646D74]">Nom</label>
             <input id="name" class="rounded-lg border-2 w-full mx-auto py-1 px-2 mt-2 mb-6" type="text"
                    bind:value={name}>
