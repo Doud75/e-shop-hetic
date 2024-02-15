@@ -5,10 +5,22 @@
   import AddProduct from "/src/Component/_AddProduct.svelte";
   import Product from "/src/Component/_Product.svelte";
   import { page } from "$app/stores";
+  import { getUsers } from "/src/helpers/helperUsers.js" 
+  import { onMount } from 'svelte';
+
 
   let userLog;
   let popup = false;
   let products = $page.data.products;
+
+  let users = [];
+
+  onMount(async () => {
+    console.log('test');
+    users = await getUsers();
+    console.log(users);
+  });
+
 
   function displayPopup() {
     popup = !popup;
@@ -30,10 +42,13 @@
 
   $: products
   $: userLog
+  console.log(products);
+  console.log(userLog);
 </script>
 
+<h1>Bonjour</h1>
 <button on:click={displayPopup} class="mb-6 rounded-lg w-full bg-[#319795] text-white py-2">Ajouter un produit</button>
-<div class="grid grid-cols-2 gap-4">
+<div class="flex flex-col gap-8">
     {#each products as product, key}
         <Product {product} bind:products {key}/>
     {/each}
