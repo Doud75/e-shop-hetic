@@ -1,5 +1,5 @@
 <script>
-  import Errors from "../../../Component/Errors.svelte";
+  import Errors from "../../../Component/_Errors.svelte";
   import {auth} from "../../../config.js";
   import {signInWithEmailAndPassword} from "firebase/auth";
   import {goto} from "$app/navigation";

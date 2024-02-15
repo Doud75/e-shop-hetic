@@ -1,5 +1,5 @@
 <script>
-  import Errors from "../../../Component/Errors.svelte";
+  import Errors from "../../../Component/_Errors.svelte";
   import {doc, setDoc} from "firebase/firestore"
   import {auth} from "../../../config.js";
   import {db} from "../../../config.js";

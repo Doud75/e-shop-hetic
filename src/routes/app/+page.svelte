@@ -2,7 +2,8 @@
   import { auth } from "/src/config.js";
   import { onAuthStateChanged } from "firebase/auth";
   import { goto } from "$app/navigation";
-  import AddProduct from "/src/Component/AddProduct.svelte";
+  import AddProduct from "/src/Component/_AddProduct.svelte";
+  import Product from "/src/Component/_Product.svelte";
   import { page } from "$app/stores";
 
   let userLog;
@@ -28,17 +29,13 @@
   }
 
   $: products
-  $: console.log(products)
   $: userLog
 </script>
 
 <button on:click={displayPopup} class="mb-6 rounded-lg w-full bg-[#319795] text-white py-2">Ajouter un produit</button>
 <div>
-    {#each products as product}
-        <span>-----------------------</span>
-        <div>{product.name}</div>
-        <div>{product.description}</div>
-        <div>{product.price}</div>
+    {#each products as product, key}
+        <Product {product} bind:products {key}/>
     {/each}
 </div>
 {#if popup}
