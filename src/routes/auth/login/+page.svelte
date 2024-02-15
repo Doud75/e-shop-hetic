@@ -3,6 +3,7 @@
 	import { auth } from '/src/config.js';
 	import { signInWithEmailAndPassword } from 'firebase/auth';
 	import { json } from '@sveltejs/kit';
+	import { goto } from '$app/navigation';
 
 	let email;
 	let password;
