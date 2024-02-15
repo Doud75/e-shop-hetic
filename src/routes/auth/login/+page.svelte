@@ -1,8 +1,8 @@
 <script>
-  import Errors from "../../../Component/_Errors.svelte";
+  import Errors from "../../../Component/Errors.svelte";
   import {auth} from "../../../config.js";
   import {signInWithEmailAndPassword} from "firebase/auth";
-  import {goto} from "$app/navigation";
+  import {json} from "@sveltejs/kit";
 
   let email;
   let password;
@@ -13,7 +13,6 @@
         // Signed in
         const user = userCredential.user;
         localStorage.setItem('user', JSON.stringify(user))
-        goto('/app')
       })
       .catch((error) => {
         errors = [error]
