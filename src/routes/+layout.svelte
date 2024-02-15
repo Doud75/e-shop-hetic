@@ -4,6 +4,6 @@
 </script>
 
 
-<body>
+<body class="mx-4">
 <slot />
 </body>

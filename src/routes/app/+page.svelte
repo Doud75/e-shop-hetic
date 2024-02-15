@@ -33,7 +33,7 @@
 </script>
 
 <button on:click={displayPopup} class="mb-6 rounded-lg w-full bg-[#319795] text-white py-2">Ajouter un produit</button>
-<div>
+<div class="grid grid-cols-2 gap-4">
     {#each products as product, key}
         <Product {product} bind:products {key}/>
     {/each}

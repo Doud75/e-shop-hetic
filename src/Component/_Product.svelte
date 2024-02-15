@@ -89,28 +89,28 @@
         </div>
     </div>
 {/if}
-<tr>
-    <td>
+<div>
+    <h2 class="text-lg font-semibold">
         {product.name}
-    </td>
-    <td>
+    </h2>
+    <p>
         {product.description}
-    </td>
-    <td>
-        {product.price}
-    </td>
-    <td>
+    </p>
+    <p class="text-grey">
+        {product.price}€
+    </p>
+    <div>
         <button
-                class="bg-[#319795] text-white px-4 py-2 rounded mx-2"
+                class="text-[#319795] underline"
                 on:click={displayPopup}>
             Modifier
         </button>
-    </td>
-    <td>
+    </div>
+    <div>
         <button
-                class="bg-red-500 text-white px-4 py-2 rounded"
+                class="text-red-500 underline"
                 on:click={displayAlert}>
             Supprimer
         </button>
-    </td>
-</tr>
+    </div>
+</div>
