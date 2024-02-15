@@ -15,6 +15,5 @@ export async function getProducts() {
 
 export async function getImageProductUrl(product) {
     let imageProductUrl = await getDownloadURL(ref(storage, 'images/' + product.fileName))
-    console.log('imageProductUrl', imageProductUrl);
     return imageProductUrl
   }

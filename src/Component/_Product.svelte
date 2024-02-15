@@ -16,6 +16,7 @@
   let newPrice = product.price
   let newDescription = product.description
   let newKey = key
+  let imageProductUrl
 
 
   function displayPopup() {
@@ -51,22 +52,21 @@
   $:newPrice
   $:newDescription
   $:newKey
+  $:imageProductUrl
 
 
   
 
-    let imageUrlT
 
-    if (typeof window !== 'undefined') {
-        getImageProductUrl(product)
-        .then(imageUrl => {
-         imageUrlT = imageUrl
-        console.log(imageUrl);
-        })
-        .catch(error => {
-        console.error(error);
-        });
-    }
+  if (typeof window !== 'undefined') {
+      getImageProductUrl(product)
+      .then(imageUrl => {
+          imageProductUrl = imageUrl
+      })
+      .catch(error => {
+      console.error(error);
+      });
+  }
   
 
 </script>
@@ -119,7 +119,7 @@
 <!-- <div class="flex gap-10 p-4 border-solid border-2"> -->
 <div class="border border-[#DAE7E3] flex gap-10 px-4 py-3 rounded relative justify-between" >
     <div class="flex gap-4">
-        <img src={imageUrlT} alt="image produit" class="w-[70px] h-[70px] object-cover">
+        <img src={imageProductUrl} alt="image produit" class="w-[70px] h-[70px] object-cover">
         <div class="flex flex-col gap-1">
             <h2 class="text-lg font-semibold">
                 {product.name}

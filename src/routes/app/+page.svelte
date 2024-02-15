@@ -46,7 +46,7 @@
 
 <h1>Bonjour</h1>
 <button on:click={displayPopup} class="mb-6 rounded-lg w-full bg-[#319795] text-white py-2">Ajouter un produit</button>
-<div class="flex flex-col gap-8">
+<div class="flex flex-col gap-6">
     {#each products as product, key}
         <Product {product} bind:products {key}/>
     {/each}
