@@ -2,11 +2,11 @@
   import { auth } from "/src/config.js";
   import { onAuthStateChanged } from "firebase/auth";
   import { goto } from "$app/navigation";
+  import { page } from "$app/stores";
+  import { onMount } from 'svelte';
   import AddProduct from "/src/Component/_AddProduct.svelte";
   import Product from "/src/Component/_Product.svelte";
-  import { getUsers } from "/src/helpers/helperUsers.js"
-  import { onMount } from 'svelte';
-  import {page} from "$app/stores";
+  import { getUsers } from "/src/helpers/helperUsers.js" 
 
 
   let userLog;
@@ -15,8 +15,9 @@
   let users = [];
 
   onMount(async () => {
-    /*products = await getProducts();*/
     users = await getUsers();
+    console.log(products);
+    console.log(users);
   });
 
 
@@ -41,9 +42,10 @@
   $: products
   $: userLog
 </script>
-
-<h1>Bonjour</h1>
-<button on:click={displayPopup} class="mb-6 rounded-lg w-full bg-[#319795] text-white py-2">Ajouter un produit</button>
+<div class="flex justify-between mb-8">
+  <h1 class="text-5xl font-semibold">Bonjour</h1>
+  <button on:click={displayPopup} class="mb-6 rounded-lg p-4 bg-[#319795] text-white py-2">Ajouter un produit</button>
+</div>
 <div class="flex flex-col gap-6">
     {#each products as product, key}
         <Product {product} bind:products {key}/>

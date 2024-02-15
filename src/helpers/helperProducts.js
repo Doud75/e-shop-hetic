@@ -19,3 +19,4 @@ export async function getImageProductUrl(product) {
     console.error('Error getting image URL:', error);
   }
 }
+

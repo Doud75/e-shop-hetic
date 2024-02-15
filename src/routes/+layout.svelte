@@ -4,6 +4,6 @@
 </script>
 
 
-<body class="mx-4">
+<div class="p-4 min-h-[100vh]">
 <slot />
-</body>
+</div>
