@@ -1,14 +1,10 @@
 /** @type {import('./$types').PageLoad} */
-import {collection, getDocs} from "firebase/firestore";
-import {db} from "../config.js";
+
+import { getProducts } from '../helpers/helperProducts';
 
 export async function load() {
-  let products = []
-  const querySnapshot = await getDocs(collection(db, 'product'))
-  querySnapshot.forEach(doc => {
-    products.push({...doc.data(), id: doc.id})
-  })
-  return {
-    products
-  }
+	let products = await getProducts();
+	return {
+		products
+	};
 }
