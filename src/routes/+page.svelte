@@ -11,7 +11,7 @@
 	</p>
 </div>
 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-	{#each products as product, key}
-		<ProductContainer {product} bind:products {key} />
+	{#each products as product}
+		<ProductContainer {product} />
 	{/each}
 </div>
