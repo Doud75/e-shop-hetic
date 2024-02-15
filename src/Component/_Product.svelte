@@ -10,6 +10,7 @@
   let newName = product.name
   let newPrice = product.price
   let newDescription = product.description
+  let newKey = key
 
   function displayPopup() {
     showPopup = !showPopup
@@ -29,6 +30,7 @@
       price: newPrice,
       name: newName,
       description: newDescription,
+      id: product.id
     };
     displayPopup()
   }
@@ -38,6 +40,11 @@
     products = products.filter((existingProduct) => product.id !== existingProduct.id)
     displayAlert()
   }
+
+  $:newName
+  $:newPrice
+  $:newDescription
+  $:newKey
 </script>
 
 {#if showPopup}
