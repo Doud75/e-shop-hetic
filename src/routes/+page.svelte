@@ -2,6 +2,7 @@
  	import { page } from '$app/stores';
 	import { onMount } from 'svelte';
 	import ProductContainer from '../Component/_ProductContainer.svelte';
+	import CartButton from '../Component/_CartButton.svelte';
 
 	let products = $page.data.products;
 
@@ -34,6 +35,7 @@
 	$: products;
 </script>
 
+<CartButton/>
 <div class="my-4 text-center">
 	<p class="text-[#646D74]">
 		Vendeur ? <a class="text-[#319795]" href="/auth/login">Connectez-vous</a>

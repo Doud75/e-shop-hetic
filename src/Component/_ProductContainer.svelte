@@ -43,7 +43,7 @@
 	<img class="w-[400px] h-[300px] object-cover rounded" src={product?.imageProductUrl} alt={`${product?.name} image`} />
 	<div class="flex justify-between gap-2">
 		<p>{product?.name}</p>
-		<p class="font-medium">{product?.price}</p>
+		<p class="font-medium">{product?.price}€</p>
 	</div>
 	<p>{product?.description}</p>
   {#if products[key].quantity > 0}
