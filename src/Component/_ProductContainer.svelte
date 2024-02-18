@@ -1,6 +1,7 @@
 <script>
 	import Button from './_Button.svelte';
 	import ButtonQuantity from './_ButtonQuantity.svelte';
+  import { toasts, ToastContainer, FlatToast }  from "svelte-toasts";
 	export let product;
 	export let products;
 	export let key;
@@ -17,6 +18,12 @@
         products[key].quantity = 1
       }
       localStorage.setItem("basket", JSON.stringify(basket));
+      const toastAdd = toasts.add({
+        type: "success",
+        theme: "light",
+        description: "Produit ajouté",
+        placement: "top-right",
+      });
     }
   }
 
@@ -33,6 +40,12 @@
           products[key].quantity = 0
         }
         localStorage.setItem("basket", JSON.stringify(basket));
+        const toastRemove = toasts.add({
+          type: "error",
+          theme: "light",
+          description: "Produit retiré",
+          placement: "top-right",
+        });
       }
     }
   }
@@ -52,3 +65,7 @@
   <Button buttonText="Ajouter au panier" on:click={increment(product)}/>
   {/if}
 </div>
+
+<ToastContainer {toasts} let:data={data}>
+  <FlatToast {data} />
+</ToastContainer>

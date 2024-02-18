@@ -9,11 +9,7 @@
     products = JSON.parse(localStorage.getItem("basket"))
   }
 
-  function handleSubmit() {
-    console.log("d")
-  }
-  
-  const showToast = () => {
+  const paiementToaster = () => {
     const toast = toasts.add({
       type: "info",
       theme: "light",
@@ -31,7 +27,7 @@
 </div>
 
 <div class="mt-4 w-[400px] m-auto">
-  <Button buttonText="Payer" on:click={showToast}/>
+  <Button buttonText="Payer" on:click={paiementToaster}/>
 </div>
 
 <ToastContainer {toasts} let:data={data}>
