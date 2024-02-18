@@ -2,7 +2,7 @@
   import ProductContainer from '../../Component/_ProductContainer.svelte'
   import Button from '../../Component/_Button.svelte'
   import { toasts, ToastContainer, FlatToast }  from "svelte-toasts";
-  
+
   let products = []
 
   if (typeof localStorage !== 'undefined') {
@@ -13,7 +13,7 @@
     const toast = toasts.add({
       type: "info",
       theme: "light",
-      description: "T'as les cramptés ?",
+      description: "Commande validée ?",
       placement: "top-right",
     });
   }
